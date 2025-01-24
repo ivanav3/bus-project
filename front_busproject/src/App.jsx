@@ -3,15 +3,22 @@ import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import "./App.css";
 import NavBar from "./components/NavBar";
-import Timetables from "./components/Timetables";
+import TimetablesPage from "./pages/TimetablesPage";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import PagesBar from "./components/PagesBar";
+import Home from "./pages/Home";
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
     <div className="App">
-      <NavBar></NavBar>
-      <Timetables />
+      <BrowserRouter>
+        <NavBar />
+        <PagesBar />
+        <Routes>
+          <Route path="/" element={<Home />}></Route>
+          <Route path="/timetables" element={<TimetablesPage />}></Route>
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }

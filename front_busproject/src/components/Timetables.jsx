@@ -13,13 +13,20 @@ const Timetables = () => {
   useEffect(() => {
     const formatTT = () => {
       if (timetablesData) {
-        const formattedTT = timetablesData.map((timetable) => ({
+        let formattedTT = timetablesData.map((timetable) => ({
           id: timetable.id,
           from: timetable.departure_city.name,
           to: timetable.arrival_city.name,
           date: new Date(timetable.date),
           time: timetable.time,
         }));
+        formattedTT.sort((a, b) => {
+          return a.date - b.date;
+        });
+        formattedTT.sort((a, b) => {
+          return a.time - b.time;
+        });
+
         setTimetables(formattedTT);
         setTimetable(formattedTT[0]);
       }

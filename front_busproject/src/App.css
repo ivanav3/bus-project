@@ -1,42 +1,101 @@
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
   text-align: center;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.navBar{
+  background-color: rgb(0, 191, 255);
+  color: #ffffff; 
+  padding: 20px;
+  display: flex;  
+  align-items: center;
+  justify-content: space-between;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+img {
+  max-height: 200px;
+  max-width: 200px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+button{
+  font-size: 18px;
+  color: #ffffff;
+  background-color: #0073e6;
+  border: none;
+  border-radius: 8px;
+  margin: 20px;
+  height: 80px;
+  width: 250px;
+  cursor: "pointer";
+  transition: box-shadow 0.2s ease,
+  background-color 0.2s ease; 
+
 }
 
-.card {
-  padding: 2em;
+button:hover {
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.493); }
+
+button:active{
+  background-color:#0055a9
 }
 
-.read-the-docs {
-  color: #888;
+.pages-bar{
+  padding-top: 10px;
+  padding-bottom: 10px;
+  display: flex;  
+  justify-content: space-around;
+  align-items: center;
+  background-color: #ffffff;
+}
+
+.page-button{
+  font-size:16px;
+  color: white;
+  background-color: rgb(112, 112, 255);
+  border: none;
+  border-radius: 8px;
+  margin: 5px;
+  height: 70px;
+  width: 300px;
+  cursor: "pointer";
+  display: flex; 
+  justify-content: center;
+  align-items: center;
+  transition: background-color 0.7 easy;
+}
+
+.page-button:hover{
+  background-color: rgb(56, 53, 138);
+}
+
+
+.link-page:hover{
+  text-decoration: none;
+  box-shadow: rgb(104, 137, 160);
+}
+
+.home-background {
+  display: flex;
+  color:white;
+  text-shadow: 3px 10px 20px black;
+  font-size: 200px;
+  font-family: 'Brush Script MT', cursive;
+  flex-wrap: wrap;
+  background-color: #ffffff;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 50vh; 
+  margin: 0; 
+  padding: 0; 
+  
+}
+
+footer{
+  background-color:rgb(59, 99, 147);
+  color:white;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  bottom: 0px; 
+  height: 100px;
 }
