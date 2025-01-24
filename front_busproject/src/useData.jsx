@@ -3,7 +3,6 @@ import axios from "axios";
 
 function useData(route) {
   const [dataArray, setDataArray] = useState(null);
-
   useEffect(() => {
     if (dataArray === null) {
       axios

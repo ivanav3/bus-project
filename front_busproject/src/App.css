@@ -99,3 +99,9 @@ footer{
   bottom: 0px; 
   height: 100px;
 }
+
+.search-timetable{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

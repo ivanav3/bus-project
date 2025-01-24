@@ -1,9 +1,9 @@
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
-from .models import Timetable
+from .models import Timetable, City
 
 
-# /timetable
+# /timetables
 def index(request):
     timetables = Timetable.objects.select_related('departure_city', 'arrival_city').all()
     timetables_data = []
@@ -30,5 +30,12 @@ def index(request):
 # /timetable/new
 def new(request):
     return HttpResponse('New Timetable')
+
+def cities(request):
+    cities = City.objects.all()
+
+    cities_list = list(cities.values('id', 'name','postal_code'))
+    return JsonResponse(cities_list, safe=False)
+
 
 
