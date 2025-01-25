@@ -7,6 +7,7 @@ import TimetablesPage from "./pages/TimetablesPage";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import PagesBar from "./components/PagesBar";
 import Home from "./pages/Home";
+import Register from "./pages/Register";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />}></Route>
           <Route path="/timetables" element={<TimetablesPage />}></Route>
+          <Route path="/register" element={<Register />}></Route>
         </Routes>
       </BrowserRouter>
     </div>

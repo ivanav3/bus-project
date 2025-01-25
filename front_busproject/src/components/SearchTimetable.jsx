@@ -114,7 +114,7 @@ const SearchTimetable = ({ search_timetables }) => {
           <div style={{ margin: "10px 10px 10px 10px" }}>
             <label htmlFor="departure">From:</label>
             <input
-              id="departure"
+              id="departure-input"
               type="text"
               value={departureSearchQuery}
               onChange={handleDepartureInputChange}
@@ -146,7 +146,7 @@ const SearchTimetable = ({ search_timetables }) => {
           <div style={{ margin: "10px 10px 10px 10px" }}>
             <label htmlFor="arrival">To:</label>
             <input
-              id="arrival"
+              id="arrival-input"
               type="text"
               value={arrivalSearchQuery}
               onChange={handleArrivalInputChange}
@@ -177,7 +177,7 @@ const SearchTimetable = ({ search_timetables }) => {
           </div>
         </div>
 
-        <div class="upper-form lower-form">
+        <div className="upper-form lower-form">
           <div>
             <label htmlFor="date">Date:</label>
             <input
@@ -193,7 +193,7 @@ const SearchTimetable = ({ search_timetables }) => {
             />
           </div>
 
-          <button type="submit">Submit</button>
+          <button type="submit">Go</button>
           <button onClick={swapCities}>Swap Cities</button>
         </div>
       </form>
