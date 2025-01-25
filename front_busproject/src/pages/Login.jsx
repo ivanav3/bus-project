@@ -12,6 +12,7 @@ const Login = ({ setIsLoggedIn }) => {
     axios
       .post("timetables/user/login", { username, password })
       .then((response) => {
+        sessionStorage.setItem("id", response.data.id);
         sessionStorage.setItem("username", response.data.username);
         sessionStorage.setItem("first_name", response.data.first_name);
         sessionStorage.setItem("last_name", response.data.last_name);

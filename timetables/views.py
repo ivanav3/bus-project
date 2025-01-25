@@ -108,3 +108,20 @@ def login_user(request):
     else:
         return JsonResponse({
             'error': 'Invalid username or password.'}, status=400)
+
+@csrf_exempt
+def delete_user(request):
+    data = json.loads(request.body)
+
+    id = data.get('id')
+    username = data.get('username')
+
+    user = User.objects.get(id=id,username=username)
+    user.delete()
+    if user is not None:
+        return JsonResponse({
+            "message" : "User is successfully deleted.",
+        }, status = 200)
+    else:
+        return JsonResponse({
+            'error': 'Invalid username or password.'}, status=400)
