@@ -5,6 +5,7 @@ from .models import Timetable, City
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
 from django.middleware.csrf import get_token
+from django.contrib.auth.hashers import make_password
 
 # /timetables
 def index(request):
@@ -125,3 +126,36 @@ def delete_user(request):
     else:
         return JsonResponse({
             'error': 'Invalid username or password.'}, status=400)
+
+@csrf_exempt
+def verify_user(request):
+    data = json.loads(request.body)
+
+    username = data.get('username')
+    password = data.get('password')
+
+    if not username or not password:
+        return JsonResponse({'error': 'Username and password are required.'}, status=400)
+
+    user = authenticate(request, username=username, password=password)
+
+    if user is not None:
+        return JsonResponse({
+           'confirm':True
+        },status=200)
+    else:
+        return JsonResponse({
+            'error': 'Invalid username or password.'}, status=400)
+
+@csrf_exempt
+def update_password(request):
+    try:
+        data = json.loads(request.body)
+        id = data.get('id')
+        new_password = data.get('password')
+        hashed_password = make_password(new_password)
+        User.objects.filter(id=id).update(password=hashed_password)
+
+        return JsonResponse({'message': 'Password updated successfully'}, status=200)
+    except Exception:
+        return JsonResponse({'error': ''}, status=400)

@@ -9,6 +9,7 @@ import Home from "./pages/Home";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
 import { useState, useEffect } from "react";
+import ResetPassword from "./components/ResetPassword";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -36,6 +37,7 @@ function App() {
             path="/login"
             element={<Login setIsLoggedIn={setIsLoggedIn} />}
           ></Route>
+          <Route path="/resetPassword" element={<ResetPassword />}></Route>
         </Routes>
       </BrowserRouter>
     </div>

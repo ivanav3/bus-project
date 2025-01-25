@@ -21,6 +21,7 @@ const NavBar = ({ isLoggedIn, setIsLoggedIn }) => {
     sessionStorage.removeItem("last_name");
     sessionStorage.removeItem("token");
     setIsLoggedIn(false);
+    navigate("/");
   };
 
   const handleDeleteAccountRoute = () => {
@@ -56,6 +57,10 @@ const NavBar = ({ isLoggedIn, setIsLoggedIn }) => {
     }
   };
 
+  const handleResetPassword = () => {
+    navigate("/resetPassword");
+  };
+
   return (
     <div className="navBar">
       <a href="/">
@@ -66,6 +71,12 @@ const NavBar = ({ isLoggedIn, setIsLoggedIn }) => {
           <button className="menu-button">
             ☰
             <div className="dropdown">
+              <div
+                className="dropdown-item"
+                onClick={() => handleResetPassword()}
+              >
+                Reset password
+              </div>
               <div
                 className="dropdown-item"
                 onClick={() => handleDeleteAccount()}
