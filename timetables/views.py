@@ -1,10 +1,10 @@
 from django.http import HttpResponse, JsonResponse
 import json
-from django.views.decorators.csrf import csrf_protect, csrf_exempt
-
+from django.views.decorators.csrf import csrf_exempt
 from .models import Timetable, City
 from django.contrib.auth.models import User
-from django.contrib import messages
+from django.contrib.auth import authenticate, login
+from django.middleware.csrf import get_token
 
 # /timetables
 def index(request):
@@ -79,3 +79,32 @@ def new_user(request):
 
     except Exception as e:
         return JsonResponse({"error": f"Error occurred: {e}"}, status=400)
+
+
+
+
+@csrf_exempt
+def login_user(request):
+    data = json.loads(request.body)
+
+    username = data.get('username')
+    password = data.get('password')
+
+    if not username or not password:
+        return JsonResponse({'error': 'Username and password are required.'}, status=400)
+
+    user = authenticate(request, username=username, password=password)
+
+    if user is not None:
+        login(request, user)
+        csrf_token = get_token(request)
+        return JsonResponse({
+            'id':user.id,
+            'username': user.username,
+            'first_name': user.first_name,
+            'last_name':user.last_name,
+            'csrf_token': csrf_token
+        })
+    else:
+        return JsonResponse({
+            'error': 'Invalid username or password.'}, status=400)
