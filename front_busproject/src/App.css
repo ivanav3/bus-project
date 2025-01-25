@@ -105,3 +105,15 @@ footer{
   justify-content: center;
   align-items: center;
 }
+
+
+
+.upper-form{
+  display:flex;
+  justify-content:center;
+  align-items: center;
+}
+
+.lower-form{
+  gap: 30px
+}

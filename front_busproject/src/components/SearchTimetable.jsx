@@ -13,6 +13,51 @@ const SearchTimetable = ({ search_timetables }) => {
   const [cities, setCities] = useState([]);
   const citiesData = useData("timetables/cities");
 
+  const [departureSearchQuery, setDepartureSearchQuery] = useState("");
+  const [arrivalSearchQuery, setArrivalSearchQuery] = useState("");
+  const [filteredDepartureCities, setFilteredDepartureCities] = useState([]);
+  const [filteredArrivalCities, setFilteredArrivalCities] = useState([]);
+
+  const handleDepartureInputChange = (e) => {
+    const query = e.target.value;
+    setDepartureSearchQuery(query);
+
+    if (query.length > 0) {
+      const filtered = cities.filter((city) =>
+        city.name.toLowerCase().includes(query.toLowerCase())
+      );
+      setFilteredDepartureCities(filtered);
+    } else {
+      setFilteredDepartureCities([]);
+    }
+  };
+
+  const handleArrivalInputChange = (e) => {
+    const query = e.target.value;
+    setArrivalSearchQuery(query);
+
+    if (query.length > 0) {
+      const filtered = cities.filter((city) =>
+        city.name.toLowerCase().includes(query.toLowerCase())
+      );
+      setFilteredArrivalCities(filtered);
+    } else {
+      setFilteredArrivalCities([]);
+    }
+  };
+
+  const handleDepartureSelect = (cityName) => {
+    setDeparture(cityName);
+    setDepartureSearchQuery(cityName);
+    setFilteredDepartureCities([]);
+  };
+
+  const handleArrivalSelect = (cityName) => {
+    setArrival(cityName);
+    setArrivalSearchQuery(cityName);
+    setFilteredArrivalCities([]);
+  };
+
   useEffect(() => {
     const formatCity = () => {
       if (citiesData) {
@@ -49,63 +94,119 @@ const SearchTimetable = ({ search_timetables }) => {
   };
 
   const swapCities = () => {
-    const temp = departure;
+    const tempD = departure;
+    const depSQ = departureSearchQuery;
+
     setDeparture(arrival);
-    setArrival(temp);
+    setDepartureSearchQuery(arrivalSearchQuery);
+
+    setArrival(tempD);
+    setArrivalSearchQuery(depSQ);
+
+    handleDepartureInputChange({ target: { value: arrivalSearchQuery } });
+    handleArrivalInputChange({ target: { value: departureSearchQuery } });
   };
   return (
     <div>
       <h2>Search</h2>
       <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="departure">From:</label>
-          <select
-            id="departure"
-            value={departure}
-            onChange={(e) => setDeparture(e.target.value)}
-          >
-            <option value="">Select a city</option>
-            {cities.map((city) => (
-              <option key={city.id} value={city.name}>
-                {city.name}
-              </option>
-            ))}
-          </select>
+        <div className="upper-form">
+          <div style={{ margin: "10px 10px 10px 10px" }}>
+            <label htmlFor="departure">From:</label>
+            <input
+              id="departure"
+              type="text"
+              value={departureSearchQuery}
+              onChange={handleDepartureInputChange}
+              placeholder="Start typing..."
+              style={{ width: "100%", margin: "10px 10px 10px 10px" }}
+            />
+            <select
+              id="departure"
+              value={departureSearchQuery}
+              onChange={(e) => handleDepartureSelect(e.target.value)}
+              style={{
+                width: "100%",
+                padding: "8px",
+                margin: "10px 10px 10px 10px",
+              }}
+            >
+              <option value="">Select a city</option>
+              {filteredDepartureCities.length > 0 ? (
+                filteredDepartureCities.map((city) => (
+                  <option key={city.id} value={city.name}>
+                    {city.name}
+                  </option>
+                ))
+              ) : (
+                <option value="">No cities found</option>
+              )}
+            </select>
+          </div>
+          <div style={{ margin: "10px 10px 10px 10px" }}>
+            <label htmlFor="arrival">To:</label>
+            <input
+              id="arrival"
+              type="text"
+              value={arrivalSearchQuery}
+              onChange={handleArrivalInputChange}
+              placeholder="Start typing..."
+              style={{ width: "100%", margin: "10px 10px 10px 10px" }}
+            />
+            <select
+              id="arrival"
+              value={arrivalSearchQuery}
+              onChange={(e) => handleArrivalSelect(e.target.value)}
+              style={{
+                width: "100%",
+                padding: "8px",
+                margin: "10px 10px 10px 10px",
+              }}
+            >
+              <option value="">Select a city</option>
+              {filteredArrivalCities.length > 0 ? (
+                filteredArrivalCities.map((city) => (
+                  <option key={city.id} value={city.name}>
+                    {city.name}
+                  </option>
+                ))
+              ) : (
+                <option value="">No cities found</option>
+              )}
+            </select>
+          </div>
         </div>
 
-        <div>
-          <label htmlFor="arrival">To:</label>
-          <select
-            id="arrival"
-            value={arrival}
-            onChange={(e) => setArrival(e.target.value)}
-          >
-            <option value="">Select a city</option>
-            {cities.map((city) => (
-              <option key={city.id} value={city.name}>
-                {city.name}
-              </option>
-            ))}
-          </select>
-        </div>
+        <div class="upper-form lower-form">
+          <div>
+            <label htmlFor="date">Date:</label>
+            <input
+              type="date"
+              id="date"
+              value={date}
+              onChange={(e) => setDate(e.target.value)}
+              style={{
+                width: "100%",
+                padding: "8px",
+                margin: "10px 10px 10px 10px",
+              }}
+            />
+          </div>
 
-        <div>
-          <label htmlFor="date">Date:</label>
-          <input
-            type="date"
-            id="date"
-            value={date}
-            onChange={(e) => setDate(e.target.value)}
-          />
+          <button type="submit">Submit</button>
+          <button onClick={swapCities}>Swap Cities</button>
         </div>
-
-        <button type="submit">Submit</button>
       </form>
-      <button onClick={swapCities} style={{ marginTop: "10px" }}>
-        Swap Cities
-      </button>
+
       <div>
-        {result.length > 0 ? <TimetablesTable timetables={result} /> : <p></p>}
+        {result.length > 0 ? (
+          <>
+            <h2>Matching results</h2>
+            <TimetablesTable timetables={result} />
+          </>
+        ) : (
+          <p></p>
+        )}
       </div>
     </div>
   );

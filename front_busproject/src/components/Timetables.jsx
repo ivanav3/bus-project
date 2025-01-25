@@ -8,6 +8,7 @@ const Timetables = ({ timetables }) => {
   return (
     <>
       <SearchTimetable search_timetables={timetables} />
+      <h2>Complete timetable</h2>
       <TimetablesTable timetables={timetables} />
     </>
   );
