@@ -61,6 +61,10 @@ const NavBar = ({ isLoggedIn, setIsLoggedIn }) => {
     navigate("/resetPassword");
   };
 
+  const handleReadTickets = () => {
+    navigate("/myTickets");
+  };
+
   return (
     <div className="navBar">
       <a href="/">
@@ -71,6 +75,13 @@ const NavBar = ({ isLoggedIn, setIsLoggedIn }) => {
           <button className="menu-button">
             ☰
             <div className="dropdown">
+              <div
+                className="dropdown-item"
+                onClick={() => handleReadTickets()}
+              >
+                {" "}
+                Tickets
+              </div>
               <div
                 className="dropdown-item"
                 onClick={() => handleResetPassword()}

@@ -47,7 +47,7 @@ def get_tickets_by_user(request):
         tickets = Ticket.objects.filter(user_id=user_id)
 
         if not tickets.exists():
-            return JsonResponse([], status=200)
+            return JsonResponse([], safe=False,status=200)
 
 
         return JsonResponse(

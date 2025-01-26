@@ -10,14 +10,14 @@ import Register from "./pages/Register";
 import Login from "./pages/Login";
 import { useState, useEffect } from "react";
 import ResetPassword from "./components/ResetPassword";
+import TicketsTable from "./components/TicketsTable";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
-    const csrfToken = sessionStorage.getItem("csrf_token");
+    const csrfToken = sessionStorage.getItem("token");
     if (csrfToken) {
-      console.log("ucitavanje jedno");
       setIsLoggedIn(true);
     } else {
       setIsLoggedIn(false);
@@ -41,6 +41,7 @@ function App() {
             element={<Login setIsLoggedIn={setIsLoggedIn} />}
           ></Route>
           <Route path="/resetPassword" element={<ResetPassword />}></Route>
+          <Route path="/myTickets" element={<TicketsTable />}></Route>
         </Routes>
       </BrowserRouter>
     </div>

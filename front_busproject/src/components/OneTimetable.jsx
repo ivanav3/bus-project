@@ -1,5 +1,6 @@
 import React from "react";
 import { useState } from "react";
+import axios from "axios";
 
 const OneTimetable = ({ timetable }) => {
   const handleBuyTicket = () => {
@@ -8,7 +9,20 @@ const OneTimetable = ({ timetable }) => {
     if (!passengerCount || passengerCount < 1) {
       alert("Please enter a valid number of passengers.");
     } else {
-      alert("You bought a ticket!");
+      const user_id = sessionStorage.getItem("id");
+      console.log("user_id je " + user_id);
+      axios
+        .post("tickets/new", {
+          user_id: user_id,
+          passenger_count: passengerCount,
+          timetable_id: timetable.id,
+        })
+        .then((response) => {
+          alert("You bought a ticket!");
+        })
+        .catch((error) => {
+          alert("Error occured. Try again!");
+        });
     }
   };
 
