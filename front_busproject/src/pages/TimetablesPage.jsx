@@ -32,7 +32,6 @@ const TimetablesPage = () => {
       formatTT();
     }
   }, [timetablesData]);
-
   return (
     <div>{timetables ? <Timetables timetables={timetables} /> : <></>}</div>
   );

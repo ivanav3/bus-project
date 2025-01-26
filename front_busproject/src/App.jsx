@@ -31,7 +31,10 @@ function App() {
         <PagesBar />
         <Routes>
           <Route path="/" element={<Home />}></Route>
-          <Route path="/timetables" element={<TimetablesPage />}></Route>
+          <Route
+            path="/timetables"
+            element={<TimetablesPage isLoggedIn={isLoggedIn} />}
+          ></Route>
           <Route path="/register" element={<Register />}></Route>
           <Route
             path="/login"

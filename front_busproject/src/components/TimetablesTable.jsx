@@ -13,6 +13,7 @@ const TimetablesTable = ({ timetables }) => {
             <th scope="col">To</th>
             <th scope="col">Date</th>
             <th scope="col">Time</th>
+            {sessionStorage.getItem("token") && <th scope="col">Ticket</th>}
           </tr>
         </thead>
         <tbody>

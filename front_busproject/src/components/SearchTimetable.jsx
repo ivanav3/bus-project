@@ -8,7 +8,7 @@ const SearchTimetable = ({ search_timetables }) => {
   const [departure, setDeparture] = useState("");
   const [arrival, setArrival] = useState("");
   const [date, setDate] = useState(today);
-  const [result, setResult] = useState("");
+  const [result, setResult] = useState([]);
 
   const [cities, setCities] = useState([]);
   const citiesData = useData("timetables/cities");
@@ -66,7 +66,6 @@ const SearchTimetable = ({ search_timetables }) => {
           name: city.name,
           postal_code: city.postal_code,
         }));
-        console.log("formatirani gradovi: " + formattedCities);
         setCities(formattedCities);
       }
     };
@@ -79,9 +78,17 @@ const SearchTimetable = ({ search_timetables }) => {
     const filteredTT = search_timetables.filter((timetable) => {
       const departureCityName = timetable.from || "";
       const arrivalCityName = timetable.to || "";
+
+      const isDepartureMatch = departureCityName
+        .toLowerCase()
+        .includes(departure.toLowerCase());
+      const isArrivalMatch = arrivalCityName
+        .toLowerCase()
+        .includes(arrival.toLowerCase());
+
       return (
-        departureCityName.toLowerCase().includes(departure.toLowerCase()) &&
-        arrivalCityName.toLowerCase().includes(arrival.toLowerCase()) &&
+        isDepartureMatch &&
+        isArrivalMatch &&
         timetable.date.toISOString().split("T")[0] === date
       );
     });
