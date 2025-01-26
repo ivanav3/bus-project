@@ -24,6 +24,17 @@ const Register = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    const emailRegex = /^[a-zA-Z0-9._]+@[a-zA-Z0-9._]+\.[a-zA-Z]{2,}$/;
+    if (!emailRegex.test(formData.email)) {
+      alert("Please enter a valid email address.");
+      return;
+    }
+
+    if (formData.password.length < 5) {
+      alert("Password needs to be at least 5 characters long.");
+      return;
+    }
     axios
       .post("timetables/user/new", formData)
       .then((response) => {
@@ -84,7 +95,7 @@ const Register = () => {
 
       <div>
         <label htmlFor="email" className="register-lbl">
-          Email:{" "}
+          Email:
         </label>
         <input
           type="email"
